@@ -1,5 +1,8 @@
-import { Container } from './styles'
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+
+import { Container } from './styles'
+
 import { ReactComponent as BurgerIcon } from '../../assets/burger.svg';
 import  {ReactComponent as IceCreamIcon} from '../../assets/ice-cream.svg'
 import  {ReactComponent as PizzaIcon} from '../../assets/pizza.svg'
@@ -25,29 +28,29 @@ const handleToggleMenu = () => {
     <nav>
       <ul>
         <li>
-          <a href="#" className='active'>
+          <NavLink to='/'>
             <BurgerIcon />
             <span>Hamburguers</span>
-          </a>
+          </NavLink>
         </li>
 
         <li>
-          <a href="#">
+          <NavLink to='pizzas'>
             <PizzaIcon />
             <span>Pizzas</span>
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="#">
+          <NavLink to='bebidas'>
             <SodaIcon />
             <span>Bebidas</span>
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a href="#">
+          <NavLink to='sorvetes'>
             <IceCreamIcon />
             <span>Sorvetes</span>
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>
