@@ -1,34 +1,30 @@
+import { useState, useEffect } from "react";
+
 import { Head } from "../../../components/Head"
 import { SnackTitle } from "../../../components/SnackTitle"
 import { Snacks } from "../../../components/Snacks";
+import { getBurguers } from "../../../services/api";
 
 export default function Burgues(){
 
-  const data = [
-    {
-      id: 1,
-      snack: 'burguer',
-      name: 'Mega',
-      description: 'O artesanal tamanho família ..........................',
-      price: '25.5',
-      image: 'https://i.imgur.com/upjIUnG.jpg'
-    },
-    {
-      id: 2,
-      snack: 'burguer',
-      name: 'Extra Bacon',
-      description: 'O artesanal tamanho família ..........................',
-      price: '25.5',
-      image: 'https://i.imgur.com/B4J04AJ.jpg'
-    },
 
-  ]
 
-  console.log(data);
+  const [burguers, setBurguers] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const burguerRequest = await getBurguers();
+
+      setBurguers(burguerRequest.data)
+
+    })()
+  },[])
+
+  console.log(burguers);
 
   return <>
     <Head title='Hamburguers' description='Nossos melhores hamburguers' />
     <SnackTitle>Hambúrguers</SnackTitle>
-    <Snacks snacks={data}></Snacks>
+    <Snacks snacks={burguers}></Snacks>
   </>
 }
