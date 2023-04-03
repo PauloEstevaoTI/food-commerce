@@ -7,8 +7,6 @@ import { getBurguers } from "../../../services/api";
 
 export default function Burgues(){
 
-
-
   const [burguers, setBurguers] = useState([]);
 
   useEffect(() => {
@@ -20,7 +18,7 @@ export default function Burgues(){
     })()
   },[])
 
-  console.log(burguers);
+  //console.log(burguers);
 
   return <>
     <Head title='Hamburguers' description='Nossos melhores hamburguers' />
