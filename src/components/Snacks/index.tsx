@@ -3,9 +3,10 @@ import { currencyFormat } from '../../helpers/currencyFormat'
 
 import { Container } from "./styles"
 import { SkeletonSnack } from './SkeletonSnack'
+import { SnackData } from '../../interfaces/SnackData'
 
 interface SnacksProps{
-  snacks: any[]
+  snacks: SnackData[]
 }
 
 export function Snacks ({snacks} : SnacksProps) {

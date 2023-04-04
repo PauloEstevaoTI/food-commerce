@@ -35,19 +35,19 @@ const handleToggleMenu = () => {
         </li>
 
         <li>
-          <NavLink to='pizzas'>
+          <NavLink to='/pizzas'>
             <PizzaIcon />
             <span>Pizzas</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to='bebidas'>
+          <NavLink to='/bebidas'>
             <SodaIcon />
             <span>Bebidas</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to='sorvetes'>
+          <NavLink to='/sorvetes'>
             <IceCreamIcon />
             <span>Sorvetes</span>
           </NavLink>
