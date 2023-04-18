@@ -4,25 +4,30 @@ import { currencyFormat } from '../../helpers/currencyFormat'
 import { Container } from "./styles"
 import { SkeletonSnack } from './SkeletonSnack'
 import { SnackData } from '../../interfaces/SnackData'
+import { useCart } from '../../hooks/useCart'
 
 interface SnacksProps{
   snacks: SnackData[]
 }
 
 export function Snacks ({snacks} : SnacksProps) {
+
+  const { addSnackIntoCart } = useCart()
+
   return(
+
     <Container>
       {!snacks.length  ? (
         [1, 2, 3, 4].map((n)=><SkeletonSnack key={n} />)
         ) : (
-        snacks.map((item)=> (
-        <div key={item.id} className='snack'>
-          <h2>{item.name}</h2>
-          <img src={item.image} />
-          <p>{item.description}</p>
+        snacks.map((snack)=> (
+        <div key={snack.id} className='snack'>
+          <h2>{snack.name}</h2>
+          <img src={snack.image} />
+          <p>{snack.description}</p>
           <div>
-            <strong>{currencyFormat(item.price)}</strong>
-            <button type='button'><FiPlus/></button>
+            <strong>{currencyFormat(snack.price)}</strong>
+            <button type='button' onClick={()=> addSnackIntoCart(snack)}><FiPlus/></button>
           </div>
         </div>
       ))
