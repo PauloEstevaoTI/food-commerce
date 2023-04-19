@@ -7,6 +7,8 @@ import Sorvetes from './pages/Main/Sorvetes'
 import BurguesPage from './pages/Main/Burgues'
 import Bebidas from './pages/Main/Bebidas'
 
+import MyCartPage from './pages/MyCart'
+
 export function AppRoutes() {
   return (
     <Routes>
@@ -16,6 +18,7 @@ export function AppRoutes() {
         <Route path='/bebidas' element={<Bebidas/>} />
         <Route path='/sorvetes' element={<Sorvetes />} />
       </Route>
+      <Route path='cart' element={<MyCartPage />} />
 
     </Routes>
   )
