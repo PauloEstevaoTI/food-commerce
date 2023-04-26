@@ -5,7 +5,7 @@ import { snackEmoji } from '../helpers/snackEmoji'
 
 import { SnackData } from '../interfaces/SnackData'
 
-interface Snack extends SnackData {
+export interface Snack extends SnackData {
   quantity: number
   subtotal: number
 }
@@ -24,8 +24,10 @@ interface RemoveSnackFromCart {
 interface CartContextProps {
   cart: Snack[]
   addSnackIntoCart: (snack: SnackData) => void
-  //removeSnackFromCart: ({id, snack}: RemoveSnackFromCart) =>void
-  //updateCart: ({id, snack, newQuantity}: UpdateCartProps) => void
+  removeSnackFromCart: (snack: Snack) =>void
+  snackCartIncrement: (snack: Snack) => void;
+  snackCartDecrement: (snack: Snack) => void;
+  confirmOrder: () => void;
 }
 
 interface CartProviderProps {
@@ -79,11 +81,76 @@ export function CartProvider({children}: CartProviderProps ) {
     setCart(newCart);
   }
 
-  //function removeSnackFromCart({id, snack}: RemoveSnackFromCart)
+  function removeSnackFromCart(snack: Snack){
 
+    const newCart = cart.filter((item)=> !(item.id === snack.id && item.snack === snack.snack))
+    setCart(newCart);
+
+  }
+
+  function updateSnackQuantity(snack: Snack, newQuantity: number){
+    //buscar
+
+    const snackExistentInCart = cart.find(
+      (item) => item.snack === snack.snack && item.id === snack.id,
+    )
+
+    if(snackExistentInCart){
+
+      const newCart = cart.map((item)=>{
+        if(item.id === snack.id) {
+
+          const quantity = newQuantity;
+          const subtotal = item.price * quantity
+
+          return {...item, quantity, subtotal }
+        }
+
+        return item;
+
+      })
+
+      setCart(newCart);
+      return
+    }
+
+  }
+
+  function snackCartIncrement(snack: Snack){
+    console.log('increment');
+    updateSnackQuantity(snack, snack.quantity + 1)
+    toast.success(`Outro(a) ${snackEmoji(snack.snack)} ${snack.name} adicionado com sucesso`);
+  }
+
+
+  function snackCartDecrement(snack: Snack){
+    console.log('decrement')
+
+    if(snack.quantity === 1){
+      console.log('entrou');
+      return
+    }else {
+      updateSnackQuantity(snack, snack.quantity - 1)
+    }
+
+  }
+
+
+  function confirmOrder() {
+    return
+  }
 
   return(
-    <CartContext.Provider value={{cart, addSnackIntoCart}}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addSnackIntoCart,
+        removeSnackFromCart,
+        snackCartIncrement,
+        snackCartDecrement,
+        confirmOrder
+
+        }}>
       {children}
     </CartContext.Provider>
   )
