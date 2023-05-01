@@ -1,46 +1,31 @@
-
 import { useCart } from "../../../hooks/useCart";
-
+import { useState, useEffect } from "react";
 import { TableDesktop } from "./TableDesktop";
-
-
+import { TableMobile } from "./TableMobile";
+import { EmptyCart } from "../../../components/EmptyCart";
 
 export const Table = () => {
+  const [windowWidth, setWindowWidth] = useState(document.documentElement.clientWidth)
+  const { cart } = useCart()
 
-  const { cart } = useCart();
+  useEffect(()=> {
+    function updateTableComponentBaseInWindowWidth() {
+      const currentWidth = document.documentElement.clientWidth;
+      setWindowWidth(currentWidth);
+    }
 
-  if(cart.length === 0)
-    return <h1>Ops! Parece que você não tem pedidos, peça já!</h1>
+    window.addEventListener('resize', updateTableComponentBaseInWindowWidth)
 
-  return (
-    <TableDesktop />
-  )
-  // return(
-  //   <Container>
-  //     { cart.length > 0 &&
-  //       cart.map((item)=> (
-  //         <div key={item.id} className="itemCart">
-  //           <img src={item.image} />
-  //           <div className="snack">
-  //             <title>LANCHE</title>
-  //             <p>{item.name}</p>
-  //             <span className="price">{currencyFormat(item.price)}</span>
-  //           </div>
-  //           <div className="qtd">
-  //             <title>QTD</title>
-  //             <span>-</span>
-  //             <p>{item.quantity}</p>
-  //             <span>+</span>
-  //           </div>
-  //           <div className="subtotal">
-  //             <title>SUBTOTAL</title>
-  //             <span className="price"> {currencyFormat(item.subtotal)}</span>
-  //           </div>
-  //           <hr />
-  //         </div>
-  //       ))
+    return() => {
+      window.removeEventListener('resize', updateTableComponentBaseInWindowWidth)
+    }
+  }, []);
 
-  //     }
-  //   </Container>
-  // )
+  if(cart.length === 0){
+    return <h1>
+      <EmptyCart title='Ops! Parece que você não tem pedidos, peça já' />
+    </h1>
+  }
+
+  return windowWidth > 768 ? <TableDesktop /> : <TableMobile />
 }
