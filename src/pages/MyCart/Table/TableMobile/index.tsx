@@ -6,7 +6,7 @@ import plusImg from '../../../../assets/circle-plus.svg'
 import { FaTrash, FaTrashAlt } from "react-icons/fa"
 
 import { Container } from "./style"
-import { ConfirmOrder } from "../../../../components/ConfirmOrder"
+import { ConfirmOrder } from "../../../../components/OrderCloseAction/ConfirmOrder"
 
 export const TableMobile = () => {
 

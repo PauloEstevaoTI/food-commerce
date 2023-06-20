@@ -35,6 +35,7 @@ export const Container = styled.footer`
     font-weight: 500;
     text-transform: uppercase;
 
+
     strong {
       margin-left: 0.75rem;
       font-weight: 700;

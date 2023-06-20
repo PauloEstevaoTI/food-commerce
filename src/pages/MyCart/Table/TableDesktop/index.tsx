@@ -6,7 +6,7 @@ import  minusImg  from "../../../../assets/circle-minus.svg"
 import { FaTrashAlt } from "react-icons/fa";
 
 import { useCart } from "../../../../hooks/useCart"
-import { ConfirmOrder } from "../../../../components/ConfirmOrder";
+import { ConfirmOrder } from "../../../../components/OrderCloseAction/ConfirmOrder";
 
 export function TableDesktop(){
 
