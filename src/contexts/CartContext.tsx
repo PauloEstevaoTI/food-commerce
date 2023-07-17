@@ -37,10 +37,34 @@ interface CartProviderProps {
 
 export const CartContext = createContext({} as CartContextProps)
 
+const localStorageKey = '@FoodCommerce:cart';
+
+
 export function CartProvider({children}: CartProviderProps ) {
   //
   const navigate = useNavigate();
-  const [cart, setCart] = useState<Snack[]>([]);
+  const [cart, setCart] = useState<Snack[]>( () => {
+
+    const value = localStorage.getItem(localStorageKey)
+
+    if(value)  JSON.parse(value)
+
+    return []
+
+  });
+
+
+  function saveCart(items: Snack[]) {
+
+    setCart(items);
+    localStorage.setItem(localStorageKey, JSON.stringify(items));
+
+
+  }
+
+  function clearCart () {
+    localStorage.remove(localStorageKey);
+  }
 
   function addSnackIntoCart(snack: SnackData): void {
 
@@ -70,7 +94,7 @@ export function CartProvider({children}: CartProviderProps ) {
 
       //console.log(`newCart atualização`, newCart)
       toast.success(`Outro(a) ${snackEmoji(snack.snack)} ${snack.name} adicionado com sucesso`);
-      setCart(newCart);
+      saveCart(newCart);
       return
     }
 
@@ -80,13 +104,13 @@ export function CartProvider({children}: CartProviderProps ) {
 
     //console.log('newCart adição', newCart)
     toast.success(`${snackEmoji(snack.snack)} ${snack.name} adicionado com sucesso`);
-    setCart(newCart);
+    saveCart(newCart);
   }
 
   function removeSnackFromCart(snack: Snack){
 
     const newCart = cart.filter((item)=> !(item.id === snack.id && item.snack === snack.snack))
-    setCart(newCart);
+    saveCart(newCart);
 
   }
 
@@ -143,6 +167,8 @@ export function CartProvider({children}: CartProviderProps ) {
   }
 
   function payOrder() {
+
+    clearCart() // deve ser executado após retorno positivo da api;
     return
   }
 

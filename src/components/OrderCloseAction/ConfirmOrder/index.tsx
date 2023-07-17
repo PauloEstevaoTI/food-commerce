@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import { currencyFormat } from "../../../helpers/currencyFormat";
 import { useCart } from "../../../hooks/useCart"
 import { Container } from "../styles";

@@ -10,7 +10,7 @@ export const PayOrder = () => {
 
   return (
     <Container >
-      <button type="button" onClick={payOrder}>Pagar</button>
+      <button type="submit" onClick={payOrder}>Pagar</button>
 
       <span>
         Total <strong>{currencyFormat(totalAmount)}</strong>
